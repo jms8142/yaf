@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template-config>
+	<templates>
+		<template><templateID>main</templateID><fileName>main.tpl</fileName></template>
+	</templates>
+	<components>
+		<component>
+			<componentID>welcome</componentID>
+			<fileName>welcome.tpl</fileName>
+			<location>oei_Components</location>			
+		</component>
+	</components>
+</template-config>

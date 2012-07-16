@@ -1,0 +1,36 @@
+Next Steps:
+Add installation steps
+
+Screen
+
+
+
+Add a DATABASE - Mongo
+
+rename classes folder yaf
+
+
+
+Warning: require_once(/Applications/MAMP/htdocs/yaf/rules/loaders/loader.main.php) [function.require-once]: failed to open stream: No such file or directory in /Applications/MAMP/htdocs/yaf/com/classes/interface/Page.php on line 75
+
+Fatal error: require_once() [function.require]: Failed opening required '/Applications/MAMP/htdocs/yaf/rules/loaders/loader.main.php' (include_path='.:/Applications/MAMP/bin/php5.3/lib/php') in /Applications/MAMP/htdocs/yaf/com/classes/interface/Page.php on line 75
+
+install xdebug
+
+change config to JSON or XML - no classes
+
+this can't happen when the page does not exist:
+Fatal error: Allowed memory size of 33554432 bytes exhausted (tried to allocate 40 bytes) in /Applications/MAMP/htdocs/samplesTogetherLite/com/andre/dao/Basedao.php on line 56
+
+improvements:
+get pages out of database (annoying when versioning and developing)
+
+
+cool/features:
+edit content right from the page (content could be versioned too)
+add the server-side form validator as a library
+add the form protection code (the timer from www.samplestogether.com)
+
+The point of YAF should be that it's fast
+
+so it should have a built-in optimization code

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<config-root>
+	<config>
+	  <profile>
+		  <Company>My Company</Company>
+		  <Title>My First YAF Site</Title>
+		  <ProjectHome></ProjectHome>
+		  <Product>SamplesTogether</Product>
+		  <EmailTemplateDirectory>/html/yaf/default/emails</EmailTemplateDirectory>	
+		  <Components>/html/yaf/default/components</Components>
+		  <Directory>/html/yaf</Directory>	
+		  <TemplateDirectory>/html/yaf/default</TemplateDirectory>
+		  <MobileDirectory>/html/yaf/mobile</MobileDirectory>
+		  <oei_EmailTemplateDirectory>/html/yaf/default/emails</oei_EmailTemplateDirectory>
+		  <oei_Components>/html/yaf/default/components</oei_Components>
+		  <MobileComponents>/html/yaf/mobile/components</MobileComponents>
+	  </profile>
+	  <!-- 
+	  0 to the system logger
+	  1 to $error_email_notification
+	  3 to $error_file_destination
+	  4 to both $error_file destination and $error_email_notification
+	  5 to both system logger and $error_email_notification
+	  -->
+	<error_handling>
+		<error_logging>true</error_logging>
+		<error_level>3</error_level>
+		<error_file_destination>/log/error_log</error_file_destination>
+		<error_email_notification>jms8142@gmail.com</error_email_notification>
+	</error_handling>
+	
+	<registrations>
+		<domainMapper>domainMapper.xml</domainMapper>
+		<templateInfo>templates.xml</templateInfo>
+		<rules>rules.xml</rules>
+	</registrations>	
+
+	
+	<security>
+		<hashkey>baloneysoda332</hashkey>
+	</security>
+	
+	<formatting>
+		<DATETIMEFORMAT>m/d/Y</DATETIMEFORMAT>
+	</formatting>
+	
+	  
+	  <database>
+		  <DBHost>localhost</DBHost>
+		  <DBUser>root</DBUser>
+		  <DBPassword>root</DBPassword>
+		  <DBName>yaf</DBName>
+		  <DBType>mysql</DBType>
+	  </database>
+	  
+	  
+	  
+	  
+	  
+	  
+	</config>
+</config-root>
