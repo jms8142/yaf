@@ -1,7 +1,7 @@
 <?php
 /**
  * Resource locations
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright
  */
 

@@ -12,7 +12,7 @@
 
 defined('DIRACCESS') or die ('Cannot access this directly');
 
-class Page extends Overloader implements ContentAccessor {
+class Page extends Overloader {
     private $pageID;
 	private $pageTemplate;
     private $pageContent;

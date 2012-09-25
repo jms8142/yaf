@@ -3,12 +3,7 @@ Add installation steps
 
 Screen
 
-
-
-Add a DATABASE - Mongo
-
-rename classes folder yaf
-
+Add a DATABASE
 
 
 Warning: require_once(/Applications/MAMP/htdocs/yaf/rules/loaders/loader.main.php) [function.require-once]: failed to open stream: No such file or directory in /Applications/MAMP/htdocs/yaf/com/classes/interface/Page.php on line 75
@@ -34,3 +29,5 @@ add the form protection code (the timer from www.samplestogether.com)
 The point of YAF should be that it's fast
 
 so it should have a built-in optimization code
+
+move Contacts class to definitions.php

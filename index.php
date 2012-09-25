@@ -15,7 +15,7 @@ if(!$install)
 
 /**
  * Main landing page
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright
  * @todo error catching to loading rules dynamically
  */
