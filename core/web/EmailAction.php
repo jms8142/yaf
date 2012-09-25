@@ -1,10 +1,11 @@
 <?php
 
 defined('DIRACCESS') or die('Cannot access this directly');
-require_once(UTILITIES . '/phpmailer/class.phpmailer.php');
+require_once(UTILITIES . '/phpmailer/phpmailer.inc.php');
 require_once(UTILITIES . '/phpmailer/phpmailer.lang-en.php');
+require_once(CLASSROOT . '/logger/Logger.php');
 
-class EmailAction extends Action
+class EmailAction
 {
 	private $senderEmail;
 	private $senderName;
@@ -13,8 +14,8 @@ class EmailAction extends Action
 	private $recipient = array();
 	
 	public function __construct(){
-		$this->senderEmail = 'processing@samplestogether.com';
-		$this->senderName = 'SamplesTogether';
+		$this->senderEmail = 'no-reply@ecotrinsamples.com';
+		$this->senderName = 'Sample Server';
 		$this->firephp = FirePHP::getInstance(true);
 	}
 
@@ -48,29 +49,42 @@ class EmailAction extends Action
 	
 	private function send() {
 	
-		$mail = new PHPMailer();
-		$mail->IsSMTP();
-		
-		$mail->From = $this->senderEmail;
-		$mail->FromName = $this->senderName;
-		if(is_array($this->recipient)) { //check for multiple emails
-			foreach($this->recipient as $recipient) {
-				$mail->AddAddress($recipient);		
-			}
+		$mail = new PHPMailer(true); //true means throw exceptions
+
+		if($_SERVER['SERVER_NAME']=='ecotrin'){
+			$mail->IsSendmail(); //staging
 		} else {
-			$mail->AddAddress($this->recipient);
+			$mail->IsSMTP();
 		}
-		$mail->WordWrap = 50; 
-		$mail->IsHTML(true);                            // set email format to HTML
-		$mail->Subject = $this->subject;
-		$mail->Body    = stripslashes($this->message);
-		$mail->AltBody = stripslashes(strip_tags($this->message));
-		//$this->firephp->info(stripslashes($this->message));
-		if(!$mail->Send()){
-   			//$this->firephp->info("Mailer Error: " . $mail->ErrorInfo);
+		
+		try {
+			
+			//$mail->SMTPDebug  = 2;    
+			$mail->From = $this->senderEmail;
+			$mail->FromName = $this->senderName;
+			if(is_array($this->recipient)) { //check for multiple emails
+				foreach($this->recipient as $recipient) {
+					$mail->AddAddress($recipient);		
+				}
+			} else {
+				$mail->AddAddress($this->recipient);
+			}
+			$mail->WordWrap = 50; 
+			$mail->IsHTML(true);                            // set email format to HTML
+			$mail->Subject = $this->subject;
+			$mail->Body    = stripslashes($this->message);
+			$mail->AltBody = stripslashes(strip_tags($this->message));
+			$mail->Send();
+			
+		} catch (phpmailerException $e) {
+			Logger::logError('PHPMAILER : ' . $e->errorMessage());
+			return false;
+		} catch (Exception $e){
+			Logger::logError('MAILER : ' . $e->getMessage());
 			return false;
 		}
-		
+				
+
 		return true;
 	}
 	

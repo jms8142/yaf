@@ -12,22 +12,11 @@ Fatal error: require_once() [function.require]: Failed opening required '/Applic
 
 install xdebug
 
-change config to JSON or XML - no classes
 
-this can't happen when the page does not exist:
+page not exist:
 Fatal error: Allowed memory size of 33554432 bytes exhausted (tried to allocate 40 bytes) in /Applications/MAMP/htdocs/samplesTogetherLite/com/andre/dao/Basedao.php on line 56
 
 improvements:
-get pages out of database (annoying when versioning and developing)
-
-
-cool/features:
-edit content right from the page (content could be versioned too)
-add the server-side form validator as a library
-add the form protection code (the timer from www.samplestogether.com)
-
-The point of YAF should be that it's fast
-
-so it should have a built-in optimization code
+get pages out of db
 
 move Contacts class to definitions.php

@@ -100,7 +100,7 @@ abstract class Overloader
 		}
 	}
 	
-	public function loadByField($val,$key){
+	public function loadByField($key,$val){
 		if(!isset($this->entity->attributes['id'])){
 			$dao = get_class($this) . 'dao';
 

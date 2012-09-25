@@ -13,7 +13,7 @@ if(!runInstallCheck()){
 ?>
 	<body>
 <!-- ui-dialog -->
-		<div id="dialog0" title="Welcome to Yet Another Framework">
+		<div id="dialog0" title="Welcome to Yet Another Framework" class="dialog">
 			<p>It seems like this is your first time running the software.  Welcome, and if you would like to install <strong>YAF</strong>, click <strong>OK</strong> to continue.</p>
 		</div>
 
@@ -106,8 +106,8 @@ body {
 </style>
 <script type="text/javascript">
 
-			var step = 1;
-			var dialogOpions = [
+			var step = 0;
+			var dialogOptions = [
 				{ "id" : "#dialog0"},
 				{ "id" : "#dialog1"}
 			]
@@ -138,7 +138,7 @@ body {
 					closeOnEscape: false,
 					open: function(event, ui) { $(".ui-dialog-titlebar-close").hide() }
 				});
-
+				//console.info(dialogOptions[step].id);
 				$(dialogOptions[step].id).dialog('open');
 				
 			}
