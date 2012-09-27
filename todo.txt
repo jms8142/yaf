@@ -20,3 +20,6 @@ improvements:
 get pages out of db
 
 move Contacts class to definitions.php
+
+js dependency
+css_dependency loader

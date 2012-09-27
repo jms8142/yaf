@@ -82,6 +82,7 @@ class Page extends Overloader {
 		//get templates.xml info
 		$templates = xmlToArray::getArray(INCLUDES.'/'.Constants::templateInfo, 'template-config', 'templates', 'template');
 		$templateFile = xmlToArray::getNodeDetail($templates, 'templateID', $this->pageTemplate, 'fileName'); //find template filename
+		$dependencies = xmlToArray::getNodeDetail($templates, 'templateID', $this->pageTemplate, 'jsdependencies'); //find dependency files
 		$this->template = new Templator($templateFile);
 
 		if(is_array($components) && array_key_exists("componentID",$components['component'])) { //temporary - component object needed
@@ -115,6 +116,19 @@ class Page extends Overloader {
 		}
 
 		$this->template->assignTags('title', $title);
+
+		//load clientside dependencies
+		if($dependencies){
+			$stringOut = "";
+			//$this->firephp->info($dependencies);
+			$array_dependencies = explode(',',str_replace(array("\n","\t"," "),'',$dependencies));
+			//$this->firephp->info($array_dependencies);
+			foreach($array_dependencies as $dependency){
+				$stringOut .= "<script type=\"text/javascript\" src=" . $dependency . "></script>\n";
+			}
+
+			$this->template->assignTags('load_dependencies',$stringOut);
+		}
 
 		if ($this->template->populate()){
 			if($this->modal){

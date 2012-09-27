@@ -92,7 +92,8 @@ abstract class Overloader
 		if(!$this->entity->attributes['id']){ //don't double load
 			try {
 				$dao = get_class($this) . 'dao';
-				return ($this->entity = new $dao($id));
+				$this->entity = new $dao($id);
+				return true
 			} catch (oeiSampleServerException $e){
 				print $e;
 				return false;

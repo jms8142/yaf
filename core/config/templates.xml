@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template-config>
 	<templates>
-		<template><templateID>main</templateID><fileName>main.tpl</fileName></template>
+		<template>
+			<templateID>main</templateID>
+			<fileName>main.tpl</fileName>
+			<jsdependencies>
+				"http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
+			</jsdependencies>
+		</template>
 	</templates>
 	<components>
 		<component>

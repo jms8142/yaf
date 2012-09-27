@@ -19,7 +19,7 @@ class Constants
 	const error_logging = true;
 	const error_type = 3;
 	const error_file_destination = '/log/error_log';
-	const error_email_notification = 'johns@111interactive.com';
+	const error_email_notification = 'jms8142@gmail.com';
 	
 	//included xml file names
 	const config = 'config.xml';
