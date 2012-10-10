@@ -24,13 +24,9 @@ class DBConn
 
 		if(!self::$instance) {
 			
-		$session = new Session();
-			if(!$session->get('dbcreds')){
-				$dbcreds = xmlToArray::getArray(INCLUDES.'/'.Constants::config,'config-root','config','database');
-				$session->set('dbcreds',$dbcreds);
-			} else {
-				$dbcreds = $session->get('dbcreds');
-			}
+		
+			$dbcreds = xmlToArray::getArray(INCLUDES.'/'.Constants::config,'config-root','config','database');
+		
 			
 			if(!is_array($dbcreds)){
 				throw new oeiSampleServerException(oeiSampleServerException::DBCONN);
