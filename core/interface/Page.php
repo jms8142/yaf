@@ -2,7 +2,7 @@
 
 /**
  * Page handler object
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright
  * @todo change the xml accessor to bring back specific parent with nodes
  * @todo change if($initializeRule){ to a wrapper object, that parses the initializeRule script,

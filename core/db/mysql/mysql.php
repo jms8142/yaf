@@ -4,7 +4,7 @@ require_once(CLASSROOT . '/logger/Logger.php');
 require_once(CLASSROOT . '/exception/oeiSampleServerException.php');
 /**
  * wrapper for mysql
- * @author One Eleven Interactive
+ * @author John Skrzypek
  */
 
 /**

@@ -4,7 +4,7 @@ require_once(CLASSROOT . '/core/Overloader.php');
 
 /**
  * Orders
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright
  */
 

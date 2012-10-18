@@ -2,7 +2,7 @@
 /**
  * For Dynamic gets and sets - properties setup in format: (dao object) $entity->attributes['name']
  * Also contains mapper for db calls and loading functions
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright
  */
 

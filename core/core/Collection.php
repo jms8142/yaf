@@ -1,7 +1,7 @@
 <?php
 /**
  * Iteration handling of objects
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright
  * @todo review
  */

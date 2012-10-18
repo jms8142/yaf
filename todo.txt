@@ -1,23 +1,21 @@
-Next Steps:
-Add installation steps
 
-Screen
+get pages out of db
 
-Add a DATABASE
-
+cannot connect:
+Fatal error: Allowed memory size of 134217728 bytes exhausted (tried to allocate 72 bytes) in /var/www/html/oneelevensoftware.com/subdomains/prestige/core/db/mysql/mysql.php on line 34 
 
 Warning: require_once(/Applications/MAMP/htdocs/yaf/rules/loaders/loader.main.php) [function.require-once]: failed to open stream: No such file or directory in /Applications/MAMP/htdocs/yaf/com/classes/interface/Page.php on line 75
 
 Fatal error: require_once() [function.require]: Failed opening required '/Applications/MAMP/htdocs/yaf/rules/loaders/loader.main.php' (include_path='.:/Applications/MAMP/bin/php5.3/lib/php') in /Applications/MAMP/htdocs/yaf/com/classes/interface/Page.php on line 75
 
-install xdebug
+Add installation steps
 
 
 page not exist:
 Fatal error: Allowed memory size of 33554432 bytes exhausted (tried to allocate 40 bytes) in /Applications/MAMP/htdocs/samplesTogetherLite/com/andre/dao/Basedao.php on line 56
 
-improvements:
-get pages out of db
+catch
+unable to read resource: "xxxx.tpl" in /...
 
 move Contacts class to definitions.php
 

@@ -7,7 +7,7 @@ require_once(CLASSROOT . '/config/Constants.php');
 
 /**
  * DB Connection Object
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright
  * @todo revisit $dbcreds check - error
  */

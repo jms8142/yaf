@@ -2,7 +2,7 @@
 
 /**
  * reads/writes to /inc/config.xml
- * @author One Eleven Inetractive
+ * @author John Skrzypek
  * @copyright
  * @todo file checking, data validation
  */

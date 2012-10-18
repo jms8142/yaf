@@ -2,7 +2,7 @@
 
 /**
  * creation of DB queries - accepts one domain object and associated mapper for UPDATE/INSERTS
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright 
  */
 

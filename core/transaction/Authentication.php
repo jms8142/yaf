@@ -2,7 +2,7 @@
 
 /**
  * User Authentication
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright
  */
 

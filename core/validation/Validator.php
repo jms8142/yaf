@@ -2,7 +2,7 @@
 
 /**
  * signature validation class
- * @author One Eleven Interactive
+ * @author John Skrzypek
  * @copyright
  */
 
