@@ -71,9 +71,11 @@ class Page extends Overloader {
 		//$this->firephp->info($initializeRule,"Found page init rule");
 		
 		//logic for specific pages and components
-		$this->firephp->info($initializeRule);
 		if ($initializeRule) {
-		    require_once (RULES.'/loaders/'.$initializeRule.'.php');
+			$fileLoad = RULES.'/loaders/'.$initializeRule.'.php';
+			if(file_exists($fileLoad)) {
+				require_once ($fileLoad);
+			}
 		}
 
 		$components = xmlToArray::getNodeDetail($pages, 'pageID', $this->pageID, 'componentmapper'); //get components as array		

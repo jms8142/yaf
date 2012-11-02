@@ -21,3 +21,7 @@ move Contacts class to definitions.php
 
 js dependency
 css_dependency loader
+
+missing assets loaded asynchronously run the controller script over again
+
+move to eclipse
