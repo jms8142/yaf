@@ -93,8 +93,8 @@ abstract class Overloader
 			try {
 				$dao = get_class($this) . 'dao';
 				$this->entity = new $dao($id);
-				return true
-			} catch (oeiSampleServerException $e){
+				return true;
+			} catch (yafException $e){
 				print $e;
 				return false;
 			}
