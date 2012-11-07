@@ -28,18 +28,14 @@ class DBConn
 		
 			
 			if(!is_array($dbcreds)){
-				throw new oeiSampleServerException(oeiSampleServerException::DBCONN);
+				throw new yafException(yafException::DBCONN);
 			}
 			
 			//create appropriate DB object
 			$wrapper = ObjFactory::getObject($dbcreds['DBType']);
 			
-			if(!(self::$instance = $wrapper->connect($dbcreds['DBHost'],$dbcreds['DBUser'],$dbcreds['DBPassword']))){
-				throw new oeiSampleServerException(oeiSampleServerException::DBCONN,oeiSampleServerException::FATAL);
-			}
-			
-			if(!$wrapper->select_db($dbcreds['DBName'],self::$instance)){
-				throw new oeiSampleServerException(oeiSampleServerException::SELECTDB . " -" . $dbcreds['DBName'],oeiSampleServerException::FATAL); 
+			if(!(self::$instance = $wrapper->connect($dbcreds['DBHost'],$dbcreds['DBUser'],$dbcreds['DBPassword'],$dbcreds['DBName']))){
+				throw new yafException(yafException::DBCONN,yafException::FATAL);
 			}
 			
 		}

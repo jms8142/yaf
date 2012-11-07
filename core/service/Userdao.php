@@ -1,6 +1,6 @@
 <?php
 
-require_once(CLASSROOT . '/dao/Basedao.php');
+require_once(CLASSROOT . '/service/Basedao.php');
 
 defined('DIRACCESS') or die('Cannot access this directly');
 
@@ -8,7 +8,7 @@ class Userdao extends Basedao
 {
 	protected $table = 'users';
 	protected $dataClass = 'User';
-	protected $itemError = oeiSampleServerException::USERNOTFOUND;
+	protected $itemError = yafException::USERNOTFOUND;
 
 	public $attributes;
 	

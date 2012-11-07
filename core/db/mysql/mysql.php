@@ -18,6 +18,7 @@ class mysql implements DBWrapper
 	public $num_rows = 0;
 	private $result;
 	protected $firephp; //FirePHP console logging for FireFox
+	protected $mysqli;
 	
 	public function __construct(){
 		$this->firephp = FirePHP::getInstance(true);
@@ -28,22 +29,25 @@ class mysql implements DBWrapper
 		return $this->num_rows;
 	}
 	
-	public function connect($host,$user,$password){
-		if(!$link = @mysql_connect($host,$user,$password)){
-			Logger::logError('FATAL - Cannot connect to ' . $host);
-			throw new oeiSampleServerException(oeiSampleServerException::DBCONN,oeiSampleServerException::FATAL);
+	public function connect($host,$user,$password,$db){
+		//if(!$link = @mysql_connect($host,$user,$password)){
+		if(!$this->mysqli = new mysqli($host,$user,$password,$db)){
+			//Logger::logError('FATAL - Cannot connect to ' . $host);
+			Logger::logError("Failed to connect to MySQL: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error);
+			throw new yafException(yafException::DBCONN,yafException::FATAL);
 		}
 		//$this->firephp->info('connnceted!');
-		return $link;
+		return $this->mysqli;
 	}
 	
-	public function select_db($database,$link){
-		if(!mysql_select_db($database,$link)){
-			Logger::logError('FATAL - ' . @mysql_errno($link).": " . @mysql_error($link));
-			throw new oeiSampleServerException(oeiSampleServerException::SELECTDB,oeiSampleServerException::FATAL);
+	public function select_db($database){
+
+		if(!$this->mysqli->select_db($database)){
+			Logger::logError("Failed to select database $database: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error);
+			throw new yafException(yafException::SELECTDB,yafException::FATAL);
 		}
 		
-		return mysql_select_db($database,$link);
+		return true;
 	}
 	
 	public function query($query_str,$link){
@@ -53,7 +57,7 @@ class mysql implements DBWrapper
 		if(!$this->result = @mysql_query($query_str,$link)) {
 			$this->firephp->info(mysql_error($link),"FAILED");
 			Logger::logError('FATAL - ' . @mysql_errno($link).": " . @mysql_error($link) . " (QUERY:$query_str)");
-			throw new oeiSampleServerException(oeiSampleServerException::QUERY,oeiSampleServerException::FATAL);			
+			throw new yafException(yafException::QUERY,yafException::FATAL);			
 		}
 
 		return $this->result;

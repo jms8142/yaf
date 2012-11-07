@@ -108,7 +108,7 @@ abstract class Overloader
 			try {
 				$this->entity = new $dao($val,$key);
 				return true;
-			} catch (oeiSampleServerException $e){
+			} catch (yafException $e){
 				return false;
 			}
 		}		
