@@ -39,7 +39,7 @@ class Basedao
 			$session = new Session();
 			if(!$session->get('dbcreds')){
 				$this->firephp->info('did not find dbtype assigning');
-				$dbcreds = xmlToArray::getArray(INCLUDES.'/'.Constants::config,'config-root','config','database');
+				$dbcreds = xmlToArray::getArray(CONFIG.'/'.Constants::config,'config-root','config','database');
 				$session->set('dbcreds',$dbcreds);
 			} else {
 				$dbcreds = $session->get('dbcreds');
@@ -127,7 +127,7 @@ class Basedao
 			
 			$query = new QueryBuilder($mode);
 			$query->setValueobj($domainobj);
-			$query->setMapper(xmlToArray::getArray(INCLUDES.'/'.Constants::dataMapper,'mapper',$this->dataClass,'field'));
+			$query->setMapper(xmlToArray::getArray(CONFIG.'/'.Constants::dataMapper,'mapper',$this->dataClass,'field'));
 			$query->setTable($this->table);
 			$query->setKey($this->attributes[$this->keyName]);
 			$query->setKeyName($this->keyName);

@@ -1,8 +1,8 @@
 <?php
 defined('DIRACCESS') or die('Cannot access this directly');
 
-require_once(CLASSROOT . '/exception/oeiSampleServerException.php');
-require_once(CLASSROOT . '/core/ObjFactory.php');
+require_once(CLASSROOT . '/exception/yafException.php');
+require_once(CLASSROOT . '/base/ObjFactory.php');
 require_once(CLASSROOT . '/config/Constants.php');
 
 /**
@@ -24,8 +24,7 @@ class DBConn
 
 		if(!self::$instance) {
 			
-		
-			$dbcreds = xmlToArray::getArray(INCLUDES.'/'.Constants::config,'config-root','config','database');
+			$dbcreds = xmlToArray::getArray(CONFIG.'/'.Constants::config,'config-root','config','database');
 		
 			
 			if(!is_array($dbcreds)){

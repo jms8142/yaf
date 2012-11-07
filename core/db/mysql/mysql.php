@@ -1,7 +1,7 @@
 <?php
 require_once(CLASSROOT . '/db/DBWrapper.php');
 require_once(CLASSROOT . '/logger/Logger.php');
-require_once(CLASSROOT . '/exception/oeiSampleServerException.php');
+require_once(CLASSROOT . '/exception/yafException.php');
 /**
  * wrapper for mysql
  * @author John Skrzypek

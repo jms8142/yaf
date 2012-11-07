@@ -44,7 +44,7 @@ class Templator
 		
 		$this->templateFile = $template;
 
-		$config = new Configuration(INCLUDES . '/' . Constants::config,'config');
+		$config = new Configuration(CONFIG . '/' . Constants::config,'config');
 		
 		$this->templateDirectory = ($g_mobile) ? $config->__get('MobileDirectory') : $config->__get('TemplateDirectory');		
 		
@@ -91,7 +91,7 @@ class Templator
 		//$this->firephp->info($components,__CLASS__ . ":" . __FUNCTION__ . " called with");
 
 		//loads template file info from templates.xml
-		$componentInfo = xmlToArray::getArray(INCLUDES.'/'.Constants::templateInfo,'template-config','components','component');		
+		$componentInfo = xmlToArray::getArray(CONFIG.'/'.Constants::templateInfo,'template-config','components','component');		
 		
 		if(array_key_exists('componentID',$components)) { //temporary - component object needed
 			foreach($componentInfo as $info){

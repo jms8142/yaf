@@ -8,7 +8,7 @@
 
 defined('DIRACCESS') or die('Cannot access this directly');
 
-require_once(INCLUDES . '/autoload.php');
+require_once(FUNC . '/autoload.php');
 
 class Collection implements Iterator
 {

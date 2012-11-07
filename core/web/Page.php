@@ -53,7 +53,7 @@ class Page extends Overloader {
 	
 	private function reload($newpage){
 		$this->pageID = $newpage;
-	    $pages = xmlToArray::getArray(INCLUDES.'/'.Constants::pageInfo, 'page-config', 'pages', 'page');
+	    $pages = xmlToArray::getArray(CONFIG.'/'.Constants::pageInfo, 'page-config', 'pages', 'page');
 		$this->pageTemplate = xmlToArray::getNodeDetail($pages, 'pageID', $this->pageID, 'pageTemplate');		
 	}
 
@@ -62,7 +62,7 @@ class Page extends Overloader {
 		$this->firephp->info(Constants::pageInfo);
 	    //- must replace
 	    //get page information - to be replaced by db
-	    $pages = xmlToArray::getArray(INCLUDES.'/'.Constants::pageInfo, 'page-config', 'pages', 'page');
+	    $pages = xmlToArray::getArray(CONFIG.'/'.Constants::pageInfo, 'page-config', 'pages', 'page');
 	    
 		$this->pageTemplate = xmlToArray::getNodeDetail($pages, 'pageID', $this->pageID, 'pageTemplate');
 		//$this->firephp->info($this->pageTemplate,"Found page template");
@@ -82,7 +82,7 @@ class Page extends Overloader {
 		//$this->firephp->info($components,"Found components");
 			
 		//get templates.xml info
-		$templates = xmlToArray::getArray(INCLUDES.'/'.Constants::templateInfo, 'template-config', 'templates', 'template');
+		$templates = xmlToArray::getArray(CONFIG.'/'.Constants::templateInfo, 'template-config', 'templates', 'template');
 		$templateFile = xmlToArray::getNodeDetail($templates, 'templateID', $this->pageTemplate, 'fileName'); //find template filename
 		$dependencies = xmlToArray::getNodeDetail($templates, 'templateID', $this->pageTemplate, 'jsdependencies'); //find dependency files
 		$this->template = new Templator($templateFile);
@@ -110,7 +110,7 @@ class Page extends Overloader {
 		}
 		
 		//last main tags to add	
-		$config = new Configuration(INCLUDES . '/' . Constants::config,'config');
+		$config = new Configuration(CONFIG . '/' . Constants::config,'config');
 		$title =  $config->__get('Product'); //get current products
 		
 		if($this->entity->attributes['title']){

@@ -8,7 +8,7 @@
 
 defined('DIRACCESS') or die('Cannot access this directly');
 
-require_once(INCLUDES . '/common/common.functions.php');
+require_once(FUNC . '/common/common.functions.php');
 
 class QueryBuilder
 {

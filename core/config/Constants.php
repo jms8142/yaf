@@ -6,6 +6,9 @@
 class Constants
 {
 
+	//database
+	const dbtype = 'mysql';
+
 	//error handling
 
 	/**
