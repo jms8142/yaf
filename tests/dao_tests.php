@@ -1,5 +1,4 @@
 <?php
-
 require_once('testHeader.php');
 require_once('ddl/all.php');
 
@@ -7,12 +6,14 @@ require_once('ddl/all.php');
 /*
 * Create a new user and save to database
 */ 
+$session = new Session;
 
 class TestUserDAO extends UnitTestCase {
 
 	protected $mysqli; //mysqli object
 
 	function __construct(){
+		init(); //start the YAF app - sets session info
 		$this->mysqli = DBConn::getInstance();
 		/* to do
 		save user to db and reload
@@ -23,9 +24,9 @@ class TestUserDAO extends UnitTestCase {
 	}
 
 	function setup(){
-		$this->assertTrue($this->mysqli->multi_query(USERS_TABLE),$this->mysqli->error); //setup test users table - multi query since we're dropping table first
+		$this->mysqli->multi_query(USERS_TABLE); //setup test users table - multi query since we're dropping table first
 	}
-
+/*
 	function testUserAccessors(){
 		$user = new User;
 		$user->setFname("John");
@@ -37,11 +38,13 @@ class TestUserDAO extends UnitTestCase {
 		$this->assertEqual($user->getLname(),"Smith");
 		$this->assertEqual($user->getEmail(),"jms8142@gmail.com");
 	}
-	/*
-	function testUserSave(){
+	*/
+	function testLoaderFalse(){
+		$user = new User;
+		$user->loadByField('lname','Smith');
 		
 	}
-
+	/*
 	function testUserPersistence() {
 
 	}

@@ -13,7 +13,7 @@ class User extends Overloader
 	protected $firephp; //debug
 
 	public function __construct(){
-		
+		$this->firephp = FirePHP::getInstance(true);
 	}
 	
 	

@@ -20,7 +20,7 @@ class TestDomainObjectCreation extends UnitTestCase {
 		try {
 			$user = new User;
 		} catch (Exception $e){
-			print $e;
+			fail($e);
 		}
 
 		$this->assertIsA($user,'User');

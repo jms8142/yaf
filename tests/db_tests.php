@@ -6,7 +6,7 @@ class TestDBConnection extends UnitTestCase {
 	
 	function testDBConn(){
 		$this->conn = DBConn::getInstance();
-		$this->assertEqual(get_resource_type($this->conn),'mysql link',"Resource is not a mysql link");
+		$this->assertEqual(get_class($this->conn),'mysqli',"Resource is not a mysqli object");
 	}
 
 	function testSingleton(){

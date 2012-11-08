@@ -25,42 +25,38 @@ class mysql implements DBWrapper
 	}
 	
 	public function getNumrows(){
-		$this->num_rows = mysql_num_rows($this->result);
-		return $this->num_rows;
+		if(get_class($this->mysqli)==='mysqli')
+			return $this->result->num_rows;
+
+		return 0;
 	}
 	
 	public function connect($host,$user,$password,$db){
+		echo 'connecting';
 		//if(!$link = @mysql_connect($host,$user,$password)){
 		if(!$this->mysqli = new mysqli($host,$user,$password,$db)){
 			//Logger::logError('FATAL - Cannot connect to ' . $host);
 			Logger::logError("Failed to connect to MySQL: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error);
 			throw new yafException(yafException::DBCONN,yafException::FATAL);
 		}
-		//$this->firephp->info('connnceted!');
 		return $this->mysqli;
 	}
 	
-	public function select_db($database){
+	public function query($query_str){
+		$this->firephp->info('query');
+		$this->firephp->info($this->mysqli);
+		$result = null;
+		if(get_class($this->mysqli)==='mysqli'){
+			//$this->result->free();
 
-		if(!$this->mysqli->select_db($database)){
-			Logger::logError("Failed to select database $database: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error);
-			throw new yafException(yafException::SELECTDB,yafException::FATAL);
+			if(!$this->result = $this->mysqli->query($query_str)) {
+				//$this->firephp->info(mysql_error($link),"FAILED");
+				echo 'error' . mysqli_error($resource);
+				Logger::logError("FATAL: (" . $resource->connect_errno . ") " . $resource->connect_error);
+				throw new yafException(yafException::QUERY,yafException::FATAL);			
+			}
 		}
-		
-		return true;
-	}
-	
-	public function query($query_str,$link){
-		//	$this->firephp->info($query_str,"query");
-		//$this->firephp->info($link,"dblink");
-
-		if(!$this->result = @mysql_query($query_str,$link)) {
-			$this->firephp->info(mysql_error($link),"FAILED");
-			Logger::logError('FATAL - ' . @mysql_errno($link).": " . @mysql_error($link) . " (QUERY:$query_str)");
-			throw new yafException(yafException::QUERY,yafException::FATAL);			
-		}
-
-		return $this->result;
+		//return $this->result;
 	}
 	
 	public function fetch_assoc_row(){

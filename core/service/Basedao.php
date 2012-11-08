@@ -20,6 +20,7 @@ class Basedao
 	public function __construct($id=0,$keyName='id'){
 		$this->firephp = FirePHP::getInstance(true);
 		
+		//echo 'basedao:' . $id . ' keyName: ' . $keyName;
 		if($id){
 			$this->keyName = $keyName;			
 			$this->loadItem($id);
@@ -37,15 +38,17 @@ class Basedao
 			
 			//get some db credentials
 			$session = new Session();
+			
 			if(!$session->get('dbcreds')){
-				$this->firephp->info('did not find dbtype assigning');
 				$dbcreds = xmlToArray::getArray(CONFIG.'/'.Constants::config,'config-root','config','database');
-				$session->set('dbcreds',$dbcreds);
+
+				print_r($dbcreds);
+				//$session->set('dbcreds',$dbcreds);
 			} else {
 				$dbcreds = $session->get('dbcreds');
 			}
 			
-			$this->firephp->info($dbcreds);
+			//$this->firephp->info($dbcreds);
 			
 			
 			//load from db
@@ -55,18 +58,26 @@ class Basedao
 			$query->setKey($id);
 			$query->setKeyName($this->keyName);	
 			$query_str = $query->parse();
-			//$this->firephp->info($query_str);
+			$this->firephp->info($query_str);
 			//print '<hr>' . $query_str . '<hr>';
-			$this->wrapper = ObjFactory::getObject($dbcreds['DBType']);
+			$this->wrapper = DBConn::getInstance();
 			//$this->firephp->info($this->wrapper,"wrapper");
-			$result = $this->wrapper->query($query_str,DBConn::getInstance());
+			//$result = $this->wrapper->query($query_str,DBConn::getInstance());
 			//$this->firephp->info($this->wrapper->getNumrows(),"rows");
+			$this->firephp->info(get_class($this->wrapper));
+			$this->wrapper->query($query_str);
 
+			//$wrapper2 = new mysql();
+			//$wrapper2->connect()
+
+
+
+		
 			if($this->wrapper->getNumrows() == 0) {
 				Logger::logError('WARNING - ' .$this->wrapper->getError(DBConn::getInstance()) . ": " . 
 				$this->wrapper->getErrno(DBConn::getInstance()) . " (QUERY:$query_str)");
 	
-				throw new oeiSampleServerException($this->itemError,oeiSampleServerException::WARNING);
+				throw new yafException($this->itemError,yafException::WARNING);
 			}
 		
 			$this->attributes = $this->wrapper->fetch_assoc_row();			

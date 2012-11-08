@@ -102,7 +102,9 @@ abstract class Overloader
 	}
 	
 	public function loadByField($key,$val){
+		//$this->firephp->info($this->entity->attributes);
 		if(!isset($this->entity->attributes['id'])){
+
 			$dao = get_class($this) . 'dao';
 
 			try {

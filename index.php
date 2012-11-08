@@ -1,4 +1,4 @@
-][\<?php
+<?php
 
 
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED & ~E_NOTICE);
@@ -24,10 +24,9 @@ define('DIRACCESS',1);
 if(!defined(ROOT))
 	define('ROOT', dirname(__FILE__));
 	
-require_once('detect.php');
 require_once(ROOT . '/inc/definitions.php');
 require_once(INCLUDES . '/messages.php');
-require_once(INCLUDES . '/common/common.functions.php');
+require_once(FUNC . '/common.functions.php');
 require_once(INCLUDES . '/autoload.php');
 require_once(ROOT . '/lib/FirePHPCore/FirePHP.class.php'); //Firefox command line reporting
 $firephp = FirePHP::getInstance(true);
