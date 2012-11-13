@@ -19,8 +19,8 @@ class TestUserDAO extends UnitTestCase {
 	}
 
 	function setup(){
-		$this->conn->getConn()->query(DROP_USERS); //setup test users table - multi query since we're dropping table first
-		$this->conn->getConn()->query(USERS_TABLE); //setup test users table - multi query since we're dropping table first
+		$this->conn->getConn()->query(DROP_USERS); 
+		$this->conn->getConn()->query(USERS_TABLE); //setup test users table -
 	}
 
 	function testUserAccessors(){
