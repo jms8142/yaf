@@ -14,9 +14,8 @@ require_once(CLASSROOT . '/config/Constants.php');
 
 class DBConn
 {
-	private static $instance = false;
-	private static $wrapper = false;
-	protected static $firephp; //FirePHP console logging for FireFox
+	private static $connectionWrapper = false;
+	//private $wrapper = false;
 	
 	private function __construct() {}
 	private function __clone() {}
@@ -24,7 +23,7 @@ class DBConn
 	private function getConnection(){
 
 		//if(!self::$instance) {
-		if(!self::$wrapper) {
+		if(!self::$connectionWrapper) {
 			
 			$dbcreds = xmlToArray::getArray(CONFIG.'/'.Constants::config,'config-root','config','database');
 
@@ -33,16 +32,15 @@ class DBConn
 			}
 			
 			//create appropriate DB object
-			self::$wrapper = ObjFactory::getObject($dbcreds['DBType']);
+			self::$connectionWrapper = ObjFactory::getObject($dbcreds['DBType']);
 			
-			if(!(self::$instance = self::$wrapper->connect($dbcreds['DBHost'],$dbcreds['DBUser'],$dbcreds['DBPassword'],$dbcreds['DBName']))){
+			if(!(self::$connectionWrapper->connect($dbcreds['DBHost'],$dbcreds['DBUser'],$dbcreds['DBPassword'],$dbcreds['DBName']))){
 				throw new yafException(yafException::DBCONN,yafException::FATAL);
 			}
 			
 		}
-		//FirePHP::getInstance(true)->info(self::$instance,"instance");
-		//return self::$instance;	
-		return self::$wrapper;
+		
+		return self::$connectionWrapper;
 	}
 	
 	public static function getInstance() {

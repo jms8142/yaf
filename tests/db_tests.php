@@ -6,12 +6,12 @@ class TestDBConnection extends UnitTestCase {
 	
 	function testDBConn(){
 		$this->conn = DBConn::getInstance();
-		$this->assertEqual(get_class($this->conn),'mysqli',"Resource is not a mysqli object");
+		$this->assertEqual(get_class($this->conn),'mysql',"Resource is not a mysql object");
 	}
 
 	function testSingleton(){
 	    $this->conn2 = DBConn::getInstance();
-	    $this->assertEqual($this->conn,$this->conn2); //assertReference won't work on resources
+	    $this->assertReference($this->conn,$this->conn2,"Seperate connection objects created");
 	}
 
 }

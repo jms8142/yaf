@@ -28,6 +28,7 @@ class QueryBuilder
 	public function __construct($query = self::QUERYSELECT,$filter='*'){
 		$this->queryString = $query;
 		$this->filter = $filter;
+		$this->firephp = FirePHP::getInstance(true);
 	}
 	
 	public function setCondition(Filter $condition){
@@ -118,12 +119,12 @@ class QueryBuilder
 				$str .= " WHERE $primary = ". $this->makeQuotes($this->key,$primary);
 			}			
 		}
+		
 		return $str;
 	}
 	
 	private function insert(){
 		$str = '';
-		
 		if($this->table && $this->mapper && $this->valobj){
 			$str = self::QUERYINSERT . " INTO " . $this->table;
 			foreach($this->mapper as $property){
@@ -132,7 +133,6 @@ class QueryBuilder
 					$name[] = $property['name'];
 					$accessor = $property['accessor'];
 					
-					//Temporary
 					if($property['name'] == 'modifyDate') {
 						$values[] = "'" .  date('Y-m-d H:i:s',time()) . "'";
 					} elseif ($property['name'] == 'createDate'){
@@ -145,10 +145,12 @@ class QueryBuilder
 					
 				}
 			}
+
+
 		}
 		
 		$str .= "(" . implode(',',$name). ") VALUES (" . implode(",", $values) . ")";
-					
+			
 		return $str;
 	}
 	

@@ -42,12 +42,12 @@ class yafException extends Exception
 	const WARNING = 2;
 	
 	public function __toString(){
-		if($this->code == 1) {
+		if($this->code === FATAL) {
 			//warning
 			print "<b><font color='#FF0000'>Fatal Error</font></b> - {$this->message}<br/>";		
 			//halt program
 			die();	
-		} elseif($this->code == 2) {
+		} elseif($this->code === WARNING) {
 			//fatal
 			return "<b>Warning</b> - {$this->message}<br/>";
 		}

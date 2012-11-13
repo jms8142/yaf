@@ -8,7 +8,6 @@ interface DBWrapper
 	public function query($query_str);	
 	public function fetch_assoc_row();
 	public function insert_id();
-	public function getResult();
 }
 
 ?>

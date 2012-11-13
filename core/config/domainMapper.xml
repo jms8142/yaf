@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mapper>
+	<User>
+	<field><name>id</name><accessor>getId</accessor></field>
+	<field><name>fname</name><accessor>getFname</accessor><mutator>setFname</mutator></field>
+	<field><name>lname</name><accessor>getLname</accessor><mutator>setLname</mutator></field>
+	<field><name>email</name><accessor>getEmail</accessor><mutator>setEmail</mutator></field>
+	<field><name>password</name><accessor>getPassword</accessor><mutator>setPassword</mutator></field>
+	</User>
+</mapper>

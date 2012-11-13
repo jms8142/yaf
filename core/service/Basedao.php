@@ -20,7 +20,6 @@ class Basedao
 	public function __construct($id=0,$keyName='id'){
 		$this->firephp = FirePHP::getInstance(true);
 		
-		//echo 'basedao:' . $id . ' keyName: ' . $keyName;
 		if($id){
 			$this->keyName = $keyName;			
 			$this->loadItem($id);
@@ -28,28 +27,25 @@ class Basedao
 	}
 	
 	/**
-	 * Load single item
+	 * Load single item, return false if item not found
 	 * @return 
 	 * @param object $id
 	 */
 	
 	public function loadItem($id){
 		if($id){
+
+			//$this->firephp->info($id);
 			
 			//get some db credentials
 			$session = new Session();
 			
 			if(!$session->get('dbcreds')){
 				$dbcreds = xmlToArray::getArray(CONFIG.'/'.Constants::config,'config-root','config','database');
-
-				print_r($dbcreds);
 				//$session->set('dbcreds',$dbcreds);
 			} else {
 				$dbcreds = $session->get('dbcreds');
 			}
-			
-			//$this->firephp->info($dbcreds);
-			
 			
 			//load from db
 			$mode = QueryBuilder::QUERYSELECT;
@@ -58,26 +54,15 @@ class Basedao
 			$query->setKey($id);
 			$query->setKeyName($this->keyName);	
 			$query_str = $query->parse();
-			$this->firephp->info($query_str);
-			//print '<hr>' . $query_str . '<hr>';
+			//$this->firephp->info($query_str);
+
 			$this->wrapper = DBConn::getInstance();
-			//$this->firephp->info($this->wrapper,"wrapper");
-			//$result = $this->wrapper->query($query_str,DBConn::getInstance());
-			//$this->firephp->info($this->wrapper->getNumrows(),"rows");
-			$this->firephp->info(get_class($this->wrapper));
 			$this->wrapper->query($query_str);
 
-			//$wrapper2 = new mysql();
-			//$wrapper2->connect()
-
-
-
-		
+			
 			if($this->wrapper->getNumrows() == 0) {
-				Logger::logError('WARNING - ' .$this->wrapper->getError(DBConn::getInstance()) . ": " . 
-				$this->wrapper->getErrno(DBConn::getInstance()) . " (QUERY:$query_str)");
-	
-				throw new yafException($this->itemError,yafException::WARNING);
+				Logger::logError('WARNING - ' . $this->wrapper->getError() . " (QUERY:$query_str)");
+				throw new yafException($this->wrapper->getError(),yafException::WARNING);
 			}
 		
 			$this->attributes = $this->wrapper->fetch_assoc_row();			
@@ -126,15 +111,18 @@ class Basedao
 	}
 	
 	public function save($domainobj){
-		
-		//if($domainobj->getEmail()){  //check a required field - update this to check all
-		//if ($domainobj->checkRequired()){
-			$this->wrapper = ObjFactory::getObject(Constants::dbtype);
+			$this->firephp = FirePHP::getInstance(true);
+			$this->wrapper = DBConn::getInstance();
+
 			
-			if($domainobj->getId() && $result = $this->wrapper->query("select id from {$this->table} where id = " .$domainobj->getId(),DBConn::getInstance()))
+
+			if($domainobj->getId() && $this->wrapper->query("select id from {$this->table} where id = " .$domainobj->getId()))
 				$mode = QueryBuilder::QUERYUPDATE;
 			else
 				$mode = QueryBuilder::QUERYINSERT;
+
+			//$this->firephp->info($domainobj);
+			
 			
 			$query = new QueryBuilder($mode);
 			$query->setValueobj($domainobj);
@@ -145,17 +133,17 @@ class Basedao
 			
 			$query_str = $query->parse();	
 			
-			//print $query_str;
 			
-			if(!$result = $this->wrapper->query($query_str,DBConn::getInstance())){
-				Logger::logError('WARNING - ' .$this->wrapper->getError(DBConn::getInstance()) . ": " . 
-				$this->wrapper->getErrno(DBConn::getInstance()) . " (QUERY:$query_str)");
-				throw new oeiSampleServerException($this->itemError,oeiSampleServerException::WARNING);
+			if(!$this->wrapper->query($query_str,DBConn::getInstance())){
+				Logger::logError('WARNING - ' .$this->wrapper->getError() . ": (QUERY:$query_str)");
+				throw new yafException($this->wrapper->getError(),yafException::WARNING);
+
 			}
 			
 			if($mode == QueryBuilder::QUERYINSERT) //give new entries assigned db key
 				$domainobj->setId($this->wrapper->insert_id());
-		//}
+
+			return true;
 		
 	}
 }

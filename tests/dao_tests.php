@@ -10,23 +10,19 @@ $session = new Session;
 
 class TestUserDAO extends UnitTestCase {
 
-	protected $mysqli; //mysqli object
+	protected $conn; //mysqli object
 
 	function __construct(){
 		init(); //start the YAF app - sets session info
-		$this->mysqli = DBConn::getInstance();
-		/* to do
-		save user to db and reload
-		*/
-
-
+		$this->conn = DBConn::getInstance();
 		
 	}
 
 	function setup(){
-		$this->mysqli->multi_query(USERS_TABLE); //setup test users table - multi query since we're dropping table first
+		$this->conn->getConn()->query(DROP_USERS); //setup test users table - multi query since we're dropping table first
+		$this->conn->getConn()->query(USERS_TABLE); //setup test users table - multi query since we're dropping table first
 	}
-/*
+
 	function testUserAccessors(){
 		$user = new User;
 		$user->setFname("John");
@@ -38,15 +34,45 @@ class TestUserDAO extends UnitTestCase {
 		$this->assertEqual($user->getLname(),"Smith");
 		$this->assertEqual($user->getEmail(),"jms8142@gmail.com");
 	}
-	*/
+	
 	function testLoaderFalse(){
 		$user = new User;
-		$user->loadByField('lname','Smith');
-		
+		$this->assertFalse($user->loadByField('lname','Smith'),'New user should return false');
 	}
-	/*
+
+
+	
 	function testUserPersistence() {
+		$user = new User;
+		$user->setFname('John');
+		$user->setLname('Smith');
+		$user->setPassword('12345');
+		$user->setEmail('jms8142@gmail.com');
+
+		try {
+			$res = $user->save();
+		} catch (yafException $e) {
+			print $e;
+		}
+
+		$this->assertTrue($res,"User didn't save properly");
+
+		//load new user into new object
+		$user2 = new User;
+		$user2->loadByField('lname','Smith');
+
+		$this->assertEqual($user2->getFname(),$user->getFname());
+		$this->assertEqual($user2->getLname(),$user->getLname());
+		$this->assertEqual($user2->getPassword(),$user->getPassword());
+		$this->assertEqual($user2->getEmail(),$user->getEmail());
 
 	}
-*/
+
+	/*
+	next:
+	function testUpdateandPersistence(){
+
+	}
+	*/
+
 }

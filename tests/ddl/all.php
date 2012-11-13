@@ -1,8 +1,8 @@
 <?php
 
 
+define('DROP_USERS',"DROP TABLE IF EXISTS `users`");
 define('USERS_TABLE',"
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,

@@ -23,3 +23,5 @@ js dependency
 css_dependency loader
 
 missing assets loaded asynchronously run the controller script over again (this is probably a non-normalized url issue)
+
+mutator / accessors need case insensitivity - getFname, getFName, etc.
