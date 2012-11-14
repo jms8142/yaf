@@ -1,4 +1,3 @@
-
 get pages out of db
 
 cannot connect:
@@ -9,7 +8,6 @@ Warning: require_once(/Applications/MAMP/htdocs/yaf/rules/loaders/loader.main.ph
 Fatal error: require_once() [function.require]: Failed opening required '/Applications/MAMP/htdocs/yaf/rules/loaders/loader.main.php' (include_path='.:/Applications/MAMP/bin/php5.3/lib/php') in /Applications/MAMP/htdocs/yaf/com/classes/interface/Page.php on line 75
 
 Add installation steps
-
 
 page not exist:
 Fatal error: Allowed memory size of 33554432 bytes exhausted (tried to allocate 40 bytes) in /Applications/MAMP/htdocs/samplesTogetherLite/com/andre/dao/Basedao.php on line 56
@@ -25,3 +23,5 @@ css_dependency loader
 missing assets loaded asynchronously run the controller script over again (this is probably a non-normalized url issue)
 
 mutator / accessors need case insensitivity - getFname, getFName, etc.
+
+======
