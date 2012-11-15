@@ -26,7 +26,10 @@ class Session
 	}
 	
 	public function get($key){
-		return (array_key_exists($key, $_SESSION)) ? $_SESSION[$key] : null;
+		if(isset($_SESSION))
+			return (array_key_exists($key, $_SESSION)) ? $_SESSION[$key] : null;
+		else
+			return null;
 	}
 	
 	public function set($key,$value){

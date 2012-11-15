@@ -1,4 +1,6 @@
-<?php error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED & ~E_NOTICE);	
+<?php 
+error_reporting(E_ALL ^ E_NOTICE);	
+
 define('DIRACCESS',1);
 if(!defined(ROOT))
 	define('ROOT', dirname(dirname(__FILE__)));

@@ -1,17 +1,11 @@
 <?php
-
-
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED & ~E_NOTICE);
+error_reporting(E_ALL ^ E_NOTICE);
 ini_set('display_errors',1);
-
-
 
 //look for install
 $install = file_exists( dirname(__FILE__) . '/admin/fin');
-
 if(!$install)
 	header('Location: /admin/install.php');
-
 
 /**
  * Main landing page
@@ -23,18 +17,12 @@ define('DIRACCESS',1);
 
 if(!defined(ROOT))
 	define('ROOT', dirname(__FILE__));
-	
-require_once(ROOT . '/inc/definitions.php');
-require_once(INCLUDES . '/messages.php');
+
+require_once(ROOT . '/core/config/definitions.php');
 require_once(FUNC . '/common.functions.php');
-require_once(INCLUDES . '/autoload.php');
+require_once(ROOT . '/core/func/autoload.php');
 require_once(ROOT . '/lib/FirePHPCore/FirePHP.class.php'); //Firefox command line reporting
 $firephp = FirePHP::getInstance(true);
-
-/*
- * AGENT DETECTION HANDLING
- */
-require_once(ROOT . '/inc/agent-detection.php');
 
 /**
  * requests
@@ -107,11 +95,11 @@ if($params){
 		$page->addTagtoComponent($param['component'],$param['tag'], $param['value']);
 	}
 }
-
+Logger::log('hi there');
 //$firephp->info('Loading page ' . $pageID);
 //$firephp->info($session->get('activeuser'));
 require_once(INCLUDES . '/common/cache-control.php');
 $page->load(); //loads content and parses into template
 //printRequest(0,SHOWSESSION);
 $page->display();
-//$firephp->info('page displayed');
+$firephp->info('page displayed');

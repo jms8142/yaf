@@ -34,12 +34,25 @@ class Logger
 			default:
 		}
 	}
+
+	private static function checkDirectory(){
+		if(!is_dir(ROOT . Constants::error_file_destination)){
+			try {
+				mkdir(ROOT . Constants::error_file_destination);
+			} catch (Exception $e) {
+				echo $e;
+			}	
+		}
+	
+	}
 	
 	private function errorLog($message, $type=0){
-		error_log($message,$type, ROOT . Constants::error_file_destination);
+		self::checkDirectory();
+		error_log($message,$type, ROOT . Constants::error_file_destination . '/' . Constants::error_file_name);
 	}
 	
 	private function errorEmail($message){
+		self::checkDirectory();
 		error_log($message,1,Constants::error_email_notification);
 	}
 }
