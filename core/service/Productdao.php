@@ -19,17 +19,16 @@ class Productdao extends Basedao
 	//const SELECT_BY
 	//also, protect ID in Basedao
 	
-	protected $table = 'products';
 	protected $dataClass = 'Product';
 	protected $itemError = oeiSampleServerException::PRODUCTNOTFOUND;	
 
 	public $_attributes;
 	
-	public function __construct($id=0,$keyName = 'id'){
+	public function __construct($id=0,$keyName = 'id',$table='products'){
 		if($id){
-			parent::__construct($id, $keyName);
+			parent::__construct($id, $keyName, $table);
 		}
-	}	
+	}
 
 	public function save($id){
 		//into parent?

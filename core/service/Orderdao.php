@@ -13,17 +13,16 @@ defined('DIRACCESS') or die('Cannot access this directly');
 class Orderdao extends Basedao
 {
 	
-	protected $table = 'orders';
 	protected $dataClass = 'Order';
 	protected $itemError = oeiSampleServerException::ORDERNOTFOUND;	
 
 	public $_attributes;
 	
-	public function __construct($id=0,$keyName = 'id'){
+	public function __construct($id=0,$keyName = 'id',$table='orders'){
 		if($id){
-			parent::__construct($id, $keyName);
+			parent::__construct($id, $keyName, $table);
 		}
-	}	
+	}
 
 }
 

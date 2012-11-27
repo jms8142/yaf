@@ -6,17 +6,16 @@ defined('DIRACCESS') or die('Cannot access this directly');
 
 class Userdao extends Basedao
 {
-	protected $table = 'users';
 	protected $dataClass = 'User';
 	protected $itemError = yafException::USERNOTFOUND;
 
 	public $attributes;
 	
-	public function __construct($id=0,$keyName = 'id'){
+	public function __construct($id=0,$keyName = 'id',$table='users'){
 		if($id){
-			parent::__construct($id, $keyName);
+			parent::__construct($id, $keyName, $table);
 		}
-	}	
+	}
 }
 
 ?>

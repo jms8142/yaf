@@ -13,17 +13,16 @@ defined('DIRACCESS') or die('Cannot access this directly');
 class Cartdao extends Basedao
 {
 	
-	protected $table = 'tempCart';
 	protected $dataClass = 'Cart';
 	protected $itemError = oeiSampleServerException::ORDERNOTFOUND;	
 
 	public $_attributes;
 	
-	public function __construct($id=0,$keyName = 'id'){
+	public function __construct($id=0,$keyName = 'id',$table='tempCart'){
 		if($id){
-			parent::__construct($id, $keyName);
+			parent::__construct($id, $keyName, $table);
 		}
-	}	
+	}
 
 }
 

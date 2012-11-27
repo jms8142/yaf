@@ -13,15 +13,14 @@ defined('DIRACCESS') or die('Cannot access this directly');
 class Pagedao extends Basedao
 {
 	
-	protected $table = 'pages';
 	protected $dataClass = 'Page';
 	protected $itemError = oeiSampleServerException::PAGENOTFOUND;	
 
 	public $_attributes;
 	
-	public function __construct($id=0,$keyName = 'id'){
+	public function __construct($id=0,$keyName = 'id',$table='pages'){
 		if($id){
-			parent::__construct($id, $keyName);
+			parent::__construct($id, $keyName, $table);
 		}
 	}
 }
