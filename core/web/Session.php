@@ -18,7 +18,7 @@ class Session
 	public function __construct(){
 		if(!isset($_SESSION)){
 			if(headers_sent()){
-				Logger::logError('Session not started before session object created'); 
+				Logger::logError('Header block has already been sent.  You need to start the session object before that'); 
 			} else {
 				session_start();
 			}

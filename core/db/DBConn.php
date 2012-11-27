@@ -34,10 +34,14 @@ class DBConn
 			//create appropriate DB object
 			self::$connectionWrapper = ObjFactory::getObject($dbcreds['DBType']);
 			
-			if(!(self::$connectionWrapper->connect($dbcreds['DBHost'],$dbcreds['DBUser'],$dbcreds['DBPassword'],$dbcreds['DBName']))){
+			/*if(!(self::$connectionWrapper->connect($dbcreds['DBHost'],$dbcreds['DBUser'],$dbcreds['DBPassword'],$dbcreds['DBName']))){
 				throw new yafException(yafException::DBCONN,yafException::FATAL);
+			}*/
+			try {
+				self::$connectionWrapper->connect($dbcreds['DBHost'],$dbcreds['DBUser'],$dbcreds['DBPassword'],$dbcreds['DBName']);
+			} catch (yafException $e){
+				print $e;
 			}
-			
 		}
 		
 		return self::$connectionWrapper;

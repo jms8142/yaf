@@ -17,6 +17,7 @@ abstract class Overloader
 	 */
 	protected $entity;
 	protected $firephp; //FirePHP console logging for FireFox
+	protected $table; //for custom or testing tables
 
 	/**
 	 * catched get and set calls
@@ -38,7 +39,7 @@ abstract class Overloader
 				//set up dao if called first without loading an object
 				if(!$this->entity){
 					$dao = get_class($this) . 'dao';
-					$this->entity = new $dao();		
+					$this->entity = new $dao(0,'',$this->table);
 				}
 			
 				$indexname = strtolower($name[3]) . substr($name,4);
@@ -95,7 +96,6 @@ abstract class Overloader
 				$this->entity = new $dao($id);
 				return true;
 			} catch (yafException $e){
-				print $e;
 				return false;
 			}
 		}
@@ -108,7 +108,7 @@ abstract class Overloader
 			$dao = get_class($this) . 'dao';
 
 			try {
-				$this->entity = new $dao($val,$key);
+				$this->entity = new $dao($val,$key,$this->table);
 				return true;
 			} catch (yafException $e){
 				return false;
@@ -131,6 +131,10 @@ abstract class Overloader
 	
 	public function checkRequired(){
 		return true;
+	}
+
+	public function setTable($table){
+		$this->table = $table;
 	}
 	
 	

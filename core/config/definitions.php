@@ -11,7 +11,6 @@ if(!defined(ROOT))
 	define('ROOT', dirname(__FILE__));
 
 define('CLASSROOT', ROOT . '/core');
-define('INCLUDES', ROOT . '/core/config');
 define('CONFIG', ROOT . '/core/config');
 define('FUNC', ROOT . '/core/func');
 define('UTILITIES', ROOT . '/lib');
@@ -21,7 +20,7 @@ define('RULES', ROOT . '/rules');
 
 
 //Debugging
-ini_set('display_errors','On');
+ini_set('display_errors','on');
 error_reporting(E_ALL ^ E_NOTICE);
 //error_reporting(E_ALL);
 ?>

@@ -38,7 +38,7 @@ function dateConvert($date_str,$in,$out){
 function init(){
 	
 	global $session,$firephp,$g_mobile;
-	
+	$session = new Session;
 	
 	if(isset($session) && $session->get('loggedin'))
 		$session->set('loggedin', false);

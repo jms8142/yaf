@@ -13,14 +13,16 @@ class Basedao
 	 * returns associated array of objects populated with db results
 	 * @return array
 	 */
+	protected $table;
 	protected $wrapper;
 	private $keyName;
 	protected $firephp; //FirePHP console logging for FireFox
 	
-	public function __construct($id=0,$keyName='id'){
+	public function __construct($id=0,$keyName='id',$table=''){
 		$this->firephp = FirePHP::getInstance(true);
 		
 		if($id){
+			$this->table = $table;			
 			$this->keyName = $keyName;			
 			$this->loadItem($id);
 		}

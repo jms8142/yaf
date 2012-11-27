@@ -1,12 +1,5 @@
 get pages out of db
 
-cannot connect:
-Fatal error: Allowed memory size of 134217728 bytes exhausted (tried to allocate 72 bytes) in /var/www/html/oneelevensoftware.com/subdomains/prestige/core/db/mysql/mysql.php on line 34 
-
-Warning: require_once(/Applications/MAMP/htdocs/yaf/rules/loaders/loader.main.php) [function.require-once]: failed to open stream: No such file or directory in /Applications/MAMP/htdocs/yaf/com/classes/interface/Page.php on line 75
-
-Fatal error: require_once() [function.require]: Failed opening required '/Applications/MAMP/htdocs/yaf/rules/loaders/loader.main.php' (include_path='.:/Applications/MAMP/bin/php5.3/lib/php') in /Applications/MAMP/htdocs/yaf/com/classes/interface/Page.php on line 75
-
 Add installation steps
 
 page not exist:
@@ -23,5 +16,7 @@ css_dependency loader
 missing assets loaded asynchronously run the controller script over again (this is probably a non-normalized url issue)
 
 mutator / accessors need case insensitivity - getFname, getFName, etc.
+
+simpletest mock objects
 
 ======

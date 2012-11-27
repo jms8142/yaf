@@ -6,14 +6,16 @@ require_once('ddl/all.php');
 /*
 * Create a new user and save to database
 */ 
-$session = new Session;
+
+init(); //start the app - this needs to start before the simple test to preserve the session creation
+
 
 class TestUserDAO extends UnitTestCase {
 
 	protected $conn; //mysqli object
 
 	function __construct(){
-		init(); //start the YAF app - sets session info
+		//create in-memory database here
 		$this->conn = DBConn::getInstance();
 		
 	}
@@ -24,6 +26,7 @@ class TestUserDAO extends UnitTestCase {
 	}
 
 	function testUserAccessors(){
+		//mock object here
 		$user = new User;
 		$user->setFname("John");
 		$user->setLname("Smith");

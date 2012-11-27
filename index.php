@@ -20,7 +20,7 @@ if(!defined(ROOT))
 
 require_once(ROOT . '/core/config/definitions.php');
 require_once(FUNC . '/common.functions.php');
-require_once(ROOT . '/core/func/autoload.php');
+require_once(FUNC . '/autoload.php');
 require_once(ROOT . '/lib/FirePHPCore/FirePHP.class.php'); //Firefox command line reporting
 $firephp = FirePHP::getInstance(true);
 
@@ -33,8 +33,6 @@ $pageID = ($request->getRequest('page')) ? $request->getRequest('page') : 'start
 /**
  * session handling
  */
-
-$session = new Session;
 
 /**
  * DEBUG
@@ -57,7 +55,7 @@ $pageID = 'orderSamples';
 /**
  * app initialization
  */
-if(!$session->get('init'))
+if(!isset($session) || !$session->get('init'))
 	init();
 
 if($action == 'mrun' && $method = $request->getRequest('method')) //load business rules script

@@ -9,5 +9,3 @@ interface DBWrapper
 	public function fetch_assoc_row();
 	public function insert_id();
 }
-
-?>
