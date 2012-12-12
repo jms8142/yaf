@@ -93,7 +93,6 @@ if($params){
 		$page->addTagtoComponent($param['component'],$param['tag'], $param['value']);
 	}
 }
-Logger::log('hi there');
 //$firephp->info('Loading page ' . $pageID);
 //$firephp->info($session->get('activeuser'));
 require_once(INCLUDES . '/common/cache-control.php');

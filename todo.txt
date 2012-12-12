@@ -20,3 +20,9 @@ mutator / accessors need case insensitivity - getFname, getFName, etc.
 simpletest mock objects
 
 ======
+
+setup proper environmental globals - url directory, html dir, etc.
+
+//need to add a way to list dao attributes on an object without loading one
+
+dependency loader for components

@@ -71,6 +71,35 @@ class TestUserDAO extends UnitTestCase {
 
 	}
 
+	function testUserProperties(){
+		$userProperties = array('id','fname','lname','email','password');
+		$user = new User;
+
+		foreach($user->getProperties as $property){
+			$this->assertTrue(array_key_exists($property,$testUserProperties));
+		}
+
+	}
+	//seperate file
+	function testDomainCreation(){
+		$cat = yaf::newObject('cat',(IN_MEMORY|PERSISTENT));
+
+		$this->assertTrue(file_exists('cat.php'));
+
+		$this->assertTrue($cat instanceof 'cat');
+
+		$cat->setColor('blue');
+		$cat->setBreed('Calico');
+		$cat->setName('Muffin')
+
+		$catProperties = array('color','breed','name');
+
+		foreach($cat->getProperties as $property){
+			$this->assertTrue(array_key_exists($property,$catProperties));
+		}
+
+	}
+
 	/*
 	next:
 	function testUpdateandPersistence(){

@@ -35,6 +35,11 @@ class Logger
 		}
 	}
 
+	public static function logMessage($message='',$fileName='access_log'){
+		self::checkDirectory();
+		error_log($message,3,ROOT . Constants::error_file_destination . '/' . $fileName);
+	}
+
 	private static function checkDirectory(){
 		if(!is_dir(ROOT . Constants::error_file_destination)){
 			try {
