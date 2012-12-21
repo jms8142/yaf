@@ -1,3 +1,10 @@
+string all the tests together on a page and group them
+
+nice to have:
+window for logs
+
+
+
 get pages out of db
 
 Add installation steps

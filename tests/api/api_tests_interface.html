@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Test API Consuming</title>
+<script type='text/javascript' src='/tests/lib/qunit/qunit.js'></script>
+<script type='text/javascript' src='/html/js/util.js'></script>
+<link rel="stylesheet" href="/tests/lib/qunit/qunit.css">
+
+</head>
+
+<body>
+
+
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+  <script src="/html/js/vendor/jquery.jqote2.min.js"></script>
+
+<script type="text/javascript">
+var templates;
+
+$(function(){
+
+
+    var order1 = {
+      number : "11223",
+      date : "12/5/2012",
+      items : [{ ndc : "1133212-1232", sze : "1.75mg"}]
+    }
+
+    var order2 = {
+      number : "11223",
+      date : "12/5/2012",
+      items : [{ ndc : "1133212-1232", sze : "1.75mg"},{ ndc : "1133212-1243", sze : "3.5mg"}]
+    }
+
+
+     var testUser1 = { 
+                     orderNumber : order1.number,
+                     orderDate : order1.date,
+                     dea : "AB11232",
+                     sln : "1234532",
+                     fname : "John",
+                     lname : "Skrzypek",
+                     designation : "MD",
+                     address1 : "1 Landmark Square",
+                     address2 : "#403",
+                     city : "Port Chester",
+                     state : "NY",
+                     zip : "10573",
+                     items : order2.items
+                     },
+      testUser2 = { dea : "AB11232",
+                     sln : "1234532",
+                     fname : "Baba",
+                     lname : "O'Reily",
+                     designation : "MD",
+                     address1 : "1 Landmark Square",
+                     address2 : "#403",
+                     city : "Port Chester",
+                     state : "NY",
+                     zip : "10573",
+                     items : order2.items
+                     },
+     testObj = testUser2;
+
+
+     var data = {
+          lname : testObj.lname,
+          fname : testObj.fname,
+          dea : testObj.dea
+        }
+
+
+     var ajaxRequest = [];
+    
+
+     //test no method
+     ajaxRequest[0] = {
+         method : '',
+          requestType : 'GET',
+          datatype : 'text',
+          onSuccess : function(resp){
+               module('test API');
+               test('Testing no method called', function() {
+                  equals(resp, "{ \"valid\" : \"\" , \"msg\" : \"No such method\", \"longmsg\" : \"\", \"data\" : {} }");
+               }); 
+          }
+     }
+
+    //testfindUser_noData
+       ajaxRequest.push({
+          method : 'findUser',
+          data : {},
+          requestType : 'GET',
+          datatype : 'text', 
+          onSuccess : function(resp){
+               module('test API');
+               test('findUser() with no data', function() {
+                  equals(resp, "{ \"valid\" : \"false\" , \"msg\" : \"NOT FOUND\", \"longmsg\" : \"We couldn't find that DEA or Name in our system\", \"data\" : [{\"lname\":\"\",\"dea\":\"\"}] }");
+               }); 
+          }
+      });
+
+
+
+    //testfindUser_allWrong
+      ajaxRequest.push({
+          method : 'findUser',
+          data : { lname : 'Skrzypek', fname : 'John', dea : '1233321'},
+          requestType : 'GET',
+          datatype : 'text', 
+          onSuccess : function(resp){
+               module('test API');
+               test('findUser() with all wrong', function() {
+                  equals(resp, "{ \"valid\" : \"false\" , \"msg\" : \"NOT FOUND\", \"longmsg\" : \"We couldn't find that DEA or Name in our system\", \"data\" : [{\"lname\":\"Skrzypek\",\"dea\":\"1233321\"}] }");
+               }); 
+          }
+      });
+
+    //testfindUser_lastName
+          ajaxRequest.push({
+          method : 'findUser',
+          data : { lname : 'Aaronson', fname : 'John', dea : '1233321'},
+          requestType : 'GET',
+          datatype : 'text', 
+          onSuccess : function(resp){
+               module('test API');
+               test('findUser() with only last name ', function() {
+                  equals(resp, "{ \"valid\" : \"false\" , \"msg\" : \"NOT FOUND\", \"longmsg\" : \"We found your last name but no matching DEA.\", \"data\" : [{\"lname\":\"Aaronson\",\"dea\":\"1233321\"}] }");
+               }); 
+          }
+      });
+
+    //testfindUser_dea
+      ajaxRequest.push({
+          method : 'findUser',
+          data : { lname : 'Skrzypek', fname : 'John', dea : 'AA2671128'},
+          requestType : 'GET',
+          datatype : 'text', 
+          onSuccess : function(resp){
+               module('test API');
+               test('findUser() with only dea ', function() {
+                  equals(resp, "{ \"valid\" : \"false\" , \"msg\" : \"SUPPORT\", \"longmsg\" : \"We found your DEA but no matching name.\", \"data\" : [{\"lname\":\"Skrzypek\",\"dea\":\"AA2671128\"}] }");
+               }); 
+          }
+      });
+
+
+    //testfindAll
+      ajaxRequest.push({
+          method : 'findUser',
+          data : { lname : 'Aaronson', fname : 'Gary', dea : 'AA2671128'},
+          requestType : 'GET',
+          datatype : 'text', 
+          onSuccess : function(resp){
+               module('test API');
+               test('findUser() with everything', function() {
+                  equals(resp, "{ \"valid\" : \"true\" , \"msg\" : \"SUCCESS\", \"longmsg\" : \"\", \"data\" : {\"addresses\":[{\"id\":\"16067\",\"dea\":\"AA2671128\",\"address1\":\"MEDICAL OFFICE BLDG II STE 250\",\"address2\":\"3998 KNIGHTS AND RED LION ROADS\",\"city\":\"PHILADELPHIA\",\"state\":\"PA\",\"zip\":\"19114\",\"newaddress\":\"\"}],\"user\":{\"title\":\"Dr.\",\"designation\":\"MD\",\"fname\":\"Gary\",\"lname\":\"Aaronson\"},\"0\":{\"lname\":\"Aaronson\",\"dea\":\"AA2671128\"}} }");
+               }); 
+          }
+      });
+    
+
+        //ajax call
+        for(requestTest in ajaxRequest){
+             ajaxGateway(ajaxRequest[requestTest]);
+        }
+     
+    
+
+
+});
+
+
+</script>
+
+
+<h1 id="qunit-header">QUnit example</h1>
+ <h2 id="qunit-banner"></h2>
+ <div id="qunit-testrunner-toolbar"></div>
+ <h2 id="qunit-userAgent"></h2>
+ <ol id="qunit-tests"></ol>
+ <div id="qunit-fixture">test markup, will be hidden</div>
+
+</body>
+
+
+</html>
