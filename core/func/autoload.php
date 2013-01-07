@@ -12,7 +12,7 @@ function __autoload($className){
 		$folder = classFolder($className);
 
 		if(!file_exists($folder.$className.".php")) {
-			throw new oeiSampleServerException(oeiSampleServerException::NOCLASS . ' : ' . $className);
+			throw new yafException(yafException::NOCLASS . ' : ' . $className);
 		}
 
 		require_once($folder.$className.".php");

@@ -1,5 +1,5 @@
 <?php
-require_once('testHeader.php');
+require_once('../testHeader.php');
 
 /*
 * Objects that don't except throw a yafException

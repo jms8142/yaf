@@ -26,6 +26,8 @@
 *.sql
 *.sqlite
 error_log
+access_log
+order_log
 
 # OS generated files #
 ######################

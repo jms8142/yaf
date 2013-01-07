@@ -1,5 +1,5 @@
 <?php
-require_once('testHeader.php');
+require_once('../testHeader.php');
 require_once('ddl/all.php');
 
 
@@ -81,12 +81,13 @@ class TestUserDAO extends UnitTestCase {
 
 	}
 	//seperate file
+	/*
 	function testDomainCreation(){
 		$cat = yaf::newObject('cat',(IN_MEMORY|PERSISTENT));
 
 		$this->assertTrue(file_exists('cat.php'));
 
-		$this->assertTrue($cat instanceof 'cat');
+		$this->assertTrue($cat instanceof gettype($cat));
 
 		$cat->setColor('blue');
 		$cat->setBreed('Calico');
@@ -99,7 +100,7 @@ class TestUserDAO extends UnitTestCase {
 		}
 
 	}
-
+	*/
 	/*
 	next:
 	function testUpdateandPersistence(){

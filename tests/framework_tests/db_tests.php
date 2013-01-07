@@ -1,4 +1,4 @@
-<?php require_once('testHeader.php');
+<?php require_once('../testHeader.php');
 
 
 class TestDBConnection extends UnitTestCase {
