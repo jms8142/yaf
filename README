@@ -1,3 +1,5 @@
-my (hobby) framework - still in early development
+YAF stands for Yet Another Framework.
 
-demos / documentation coming soon
+This is my part-time weekend hobby project, born out of a desire to consolidate and modularize all of the website code I’ve been using over the years. I’m still writing my test cases but I hope to throw some documentation up there soon.
+
+Basic documentation can be found in /docs

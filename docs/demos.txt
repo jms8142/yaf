@@ -1,7 +1,0 @@
-Starting an application
-
-
-creating a domain object
-
-
-traversing a collection
