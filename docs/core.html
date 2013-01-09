@@ -3,9 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Core Documentation</title>
+
+<style type="text/css">
+body {
+    font-family: verdana,arial,"sans-serif";
+}
+
+</style>
 </head>
 
 <body>
+<!--begin markdown converted text-->
+
 <h1>Basics</h1>
 
 <p>The application is laid out in a typical model-view-controller configuration.  All of the framework logic is handled in the core libraries, the root index.php and any rules scripts act as the controllers, and all of the html and scaffolding resides in the /html folder.  See below for a quick start guide.</p>
@@ -16,215 +25,184 @@
 
 <hr />
 
-<h3>core files</h3>
+<h3>Core Files</h3>
 
-<h4>base</h4>
+<h4>/core/base</h4>
 
-<h5>ObjFactory</h5>
-
-<p>[/core/base/ObjFactory.php]</p>
+<h5>/core/base/ObjFactory.php</h5>
 
 <p>Since this application makes use of the magic method __autoload, this acts as a dynamic object loader, searching the /core directory tree for classes referenced.</p>
 
-<h5>OverLoader</h5>
+<h5>/core/base/OverLoader.php</h5>
 
-<p>[/core/base/OverLoader.php]
-The parent class of all domain objects.  Includes methods for dynamically accessing properties and hooks to manage data persistence with data access objects.</p>
+<p>The parent class of all domain objects.  Includes methods for dynamically accessing properties and hooks to manage data persistence with data access objects.</p>
 
 <h4>config</h4>
 
-<h5>config.xml</h5>
+<h5>/core/config/config.xml</h5>
 
-<p>[/core/config/config.xml]
-database, error handling, logging, and general application settings can be managed in this file</p>
+<p>database, error handling, logging, and general application settings can be managed in this file</p>
 
-<h5>Configuration</h5>
+<h5>/core/config/Configuration.php</h5>
 
-<p>[/core/config/Configuration.php]
-manages internal xml files</p>
+<p>manages internal xml files</p>
 
-<h5>Constants</h5>
+<h5>/core/config/Constants.php</h5>
 
-<p>[/core/config/Constants.php]
-additional configuration settings.  set the email notification address here.</p>
+<p>additional configuration settings.  set the email notification address here.</p>
 
-<h5>Definitions</h5>
+<h5>/core/config/definitions.php</h5>
 
-<p>[/core/config/definitions.php]
-defines the internal structure of the app</p>
+<p>defines the internal structure of the app</p>
 
-<h5>Domain Mapper</h5>
+<h5>/core/config/domainMapper.php</h5>
 
-<p>[/core/config/domainMapper.php]
-Setup getters and setters here for domain objects</p>
+<p>Setup getters and setters here for domain objects</p>
 
-<h5>Messages</h5>
+<h5>/core/config/message.php</h5>
 
-<p>[/core/config/message.php]
-define system wide messages here</p>
+<p>define system wide messages here</p>
 
-<h5>Page</h5>
+<h5>/core/config/pages.xml</h5>
 
-<p>[/core/config/pages.xml]
-The page objects in the site.  Any html page entities must be defined here.  The application routing takes the format of http://yourdomain.com/display/pagename.  pagename is defined here and in the database (see the database section).</p>
+<p>The page objects in the site.  Any html page entities must be defined here.  The application routing takes the format of http://yourdomain.com/display/pagename.  pagename is defined here and in the database (see the database section).</p>
 
-<h5>Templates</h5>
+<h5>/core/config/templates.xml</h5>
 
-<p>[/core/config/templates.xml]
-Defined the actual template files associate with pages and page components.  You also register javascript dependencies here.</p>
+<p>Defined the actual template files associate with pages and page components.  You also register javascript dependencies here.</p>
 
 <h4>conversion</h4>
 
-<h5>xmlToArray</h5>
+<h5>/core/conversion/xmlToArray.xml</h5>
 
-<p>[/core/conversion/xmlToArray.xml]
-for internal conversion of xml files</p>
+<p>for internal conversion of xml files</p>
 
 <h4>db</h4>
 
-<h5>mysql</h5>
+<h5>/core/db/mysql/mysql.php</h5>
 
-<p>[/core/db/mysql/mysql.php]
-mysql wrapper implemented from the DBWrapper interface.  Add additional database connectors here from the same interface.</p>
+<p>mysql wrapper implemented from the DBWrapper interface.  Add additional database connectors here from the same interface.</p>
 
-<h5>DBConn</h5>
+<h5>/core/mysql/DBConn.xml</h5>
 
-<p>[/core/mysql/DBConn.xml]
-Singleton database connection handler</p>
+<p>Singleton database connection handler</p>
 
-<h5>DBWrapper</h5>
+<h5>/core/mysql/DBWrapper.php</h5>
 
-<p>[/core/mysql/DBWrapper.php]
-Interface for defining db connectors</p>
+<p>Interface for defining db connectors</p>
 
-<h5>QueryBuilder</h5>
+<h5>/core/mysql/QueryBuilder.php</h5>
 
-<p>[/core/mysql/QueryBuilder.php]
-sql query generator</p>
+<p>sql query generator</p>
 
-<h5>domain</h5>
+<h5>/core/domain/[domain object].php</h5>
 
-<p>[/core/domain/[domain object].php]
-Create your domain objects here.  The must extend the Overloader class.  Then you can add all your domain business rules code here.  The steps to creating a usable domain object that has persistence is as follows:
-1. Create a domain object here that extends Overloader:</p>
+<p>Create your domain objects here.  </p>
 
-<p>class User extends Overloader
-{</p>
+<p>The must extend the Overloader class.  </p>
 
-<pre><code>private function userMethods(){ /.../ }
+<p>Then you can add all your domain business rules code here.  The steps to creating a usable domain object that has persistence is as follows:</p>
 
-public function doSomething(){ /.../ }
+<p>Create a domain object here that extends Overloader:</p>
+
+<pre><code>            class User extends Overloader
+            {
+
+                private function userMethods(){ /.../ }
+
+                public function doSomething(){ /.../ }
+
+            }
 </code></pre>
 
-<p>}</p>
+<p>Add a userdao object to the service directory (/core/service) that extends the Basedao class:</p>
 
-<ol>
-<li>Add a userdao object to the service directory (/core/service) that extends the Basedao class:</li>
-</ol>
+<pre><code>            class Userdao extends Basedao
 
-<p>class Userdao extends Basedao</p>
+            {
+                protected $dataClass = 'User'; //this is important - refers to the domain name you chose for this entity
 
-<p>{</p>
+                public function __construct($id=0,$keyName = 'id',$table='users'){ //you can rewrite $table if you want a different table name (such as testing) in the db
 
-<pre><code>protected $dataClass = 'User'; //this is important - refers to the domain name you chose for this entity
+                    if($id){
 
-public function __construct($id=0,$keyName = 'id',$table='users'){ //you can rewrite $table if you want a different table name (such as testing) in the db
+                            parent::__construct($id, $keyName, $table);
 
-    if($id){
+                    }
 
-            parent::__construct($id, $keyName, $table);
-
-    }
-
-}
+                }
+            }
 </code></pre>
 
-<p>}</p>
+<p>For persistence to work you must also create the table (next version should allow you to do that on the fly)</p>
 
-<ol>
-<li>For persistence to work you must also create the table (next version should allow you to do that on the fly)</li>
-<li>To control which properties you want to allow getters and setters, you must edit the /core/config/domainMapper.xml file</li>
-</ol>
+<p>To control which properties you want to allow getters and setters, you must edit the /core/config/domainMapper.xml file</p>
 
 <h4>Exception</h4>
 
-<h5>coreException</h5>
+<h5>/core/exception/coreException.php</h5>
 
-<p>[/core/exception/coreException.php]
-App specific exception extended from the PHP Exception class.</p>
+<p>App specific exception extended from the PHP Exception class.</p>
 
 <h4>Func</h4>
 
-<h5>autoload</h5>
+<h5>/core/func/autoload.php</h5>
 
-<p>[/core/func/autoload.php]
-Responsible for dynamically loading classes</p>
+<p>Responsible for dynamically loading classes</p>
 
-<h5>Common Functions</h5>
+<h5>/core/func/common.functions.php</h5>
 
-<p>[/core/func/common.functions.php]
-Add any global functions you wish to use here.</p>
+<p>Add any global functions you wish to use here.</p>
 
-<h5>Header Preamble</h5>
+<h5>/core/func/header.preamble.php</h5>
 
-<p>[/core/func/header.preamble.php]
-add any header() directives here</p>
+<p>add any header() directives here</p>
 
 <h4>Logger</h4>
 
-<h5>autoload</h5>
+<h5>/core/logger/Logger.php</h5>
 
-<p>[/core/logger/Logger.php]
-Handles creating logs</p>
+<p>Handles creating logs</p>
 
 <h4>Service</h4>
 
-<h5>BaseDAO</h5>
+<h5>/core/service/Basedao.php</h5>
 
-<p>[/core/service/Basedao.php]
-The parent class for handling all db persistence.  Add your Data Access Objects here, extending the Basedao class.  See domain section on tips for doing this.</p>
+<p>The parent class for handling all db persistence.  Add your Data Access Objects here, extending the Basedao class.  See domain section on tips for doing this.</p>
 
 <h4>Web</h4>
 
-<h5>EmailAction</h5>
+<h5>/core/web/EmailAction.php</h5>
 
-<p>[/core/web/EmailAction.php]
-Handles all phpmailer transactions.  </p>
+<p>Handles all phpmailer transactions.  </p>
 
-<h5>Page</h5>
+<h5>/core/web/Page.php</h5>
 
-<p>[/core/web/Page.php]
-Responsible for rendering and constructing all page entities in the app</p>
+<p>Responsible for rendering and constructing all page entities in the app</p>
 
-<h5>Request</h5>
+<h5>/core/web/Request.php</h5>
 
-<p>[/core/web/Request.php]
-Provides an object wrapper to the Server Request Object</p>
+<p>Provides an object wrapper to the Server Request Object</p>
 
-<h5>Session</h5>
+<h5>/core/web/Session.php</h5>
 
-<p>[/core/web/Session.php]
-Provides an object wrapper to the Server Session Object</p>
+<p>Provides an object wrapper to the Server Session Object</p>
 
-<h5>Templator</h5>
+<h5>/core/web/Templator.php</h5>
 
-<p>[/core/web/Templator.php]
-Responsible for constructing pages and components</p>
+<p>Responsible for constructing pages and components</p>
 
 <hr />
 
 <h3>html / interface files</h3>
 
-<h4>main.tpl</h4>
-
-<p>[/html/main.tpl]</p>
+<h4>/html/main.tpl</h4>
 
 <p>This is the main html container for the application.  Right now it's mono-themed, but you can create seperate sub directories under html and point to them in the config.xml file.  All of the sub components in main load to the $oei_content placeholder in the body section.</p>
 
-<h4>Components</h4>
+<h4>/html/components</h4>
 
-<p>[/html/components]
-Invididual pages and any other html snippets reside here.  You must register them to be used as page objects (in core/config/templates.xml)</p>
+<p>Invididual pages and any other html snippets reside here.  You must register them to be used as page objects (in core/config/templates.xml)</p>
 
 <h4>Client Side Dependencies</h4>
 
@@ -261,10 +239,9 @@ and add the script to the loaders directory.</p>
 
 <hr />
 
-<h3>API</h3>
+<h3>/api/index.php</h3>
 
-<p>[/api/index.php]
-There is an internal api gateway for ajax calls.  </p>
+<p>There is an internal api gateway for ajax calls.  </p>
 
 <p>You can call it with a url such as http://myapp.com/api/?m=findUser</p>
 
@@ -333,22 +310,24 @@ INSERT INTO <code>pages</code> VALUES(40, 'helloWorld', 'HelloWorld Test', 'N', 
 <li>Create, modify, and save your object</li>
 </ol>
 
-<p>$user = new User;</p>
+<h5>Example</h5>
 
-<p>$user->setFname('John');</p>
+<pre><code>            $user = new User;
 
-<p>$user->setLname('Smithington');</p>
+            $user-&gt;setFname('John');
 
-<p>$user->setEmail('john@test.com');</p>
+            $user-&gt;setLname('Smithington');
 
-<p>$user->save();</p>
+            $user-&gt;setEmail('john@test.com');
 
-<p>$user2 = new User;</p>
+            $user-&gt;save();
 
-<p>$user2->loadbyField('email','john@test.com');</p>
+            $user2 = new User;
 
-<p>echo $user2->getLname(); //should say 'Smithington'</p>
+            $user2-&gt;loadbyField('email','john@test.com');
 
+            echo $user2-&gt;getLname(); //should say 'Smithington'
+</code></pre>
 
 
 

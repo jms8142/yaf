@@ -1,87 +1,69 @@
-Basics
-======
+# Basics
 
 The application is laid out in a typical model-view-controller configuration.  All of the framework logic is handled in the core libraries, the root index.php and any rules scripts act as the controllers, and all of the html and scaffolding resides in the /html folder.  See below for a quick start guide.
 
 API documentation can be found in /docs/api
 
-Structure
----------
+## Structure
 
 ---
-### core files
-#### base 
-##### ObjFactory
-[/core/base/ObjFactory.php]
+### Core Files
+#### /core/base 
 
+##### /core/base/ObjFactory.php
 Since this application makes use of the magic method __autoload, this acts as a dynamic object loader, searching the /core directory tree for classes referenced.
 
-##### OverLoader
-[/core/base/OverLoader.php]
+##### /core/base/OverLoader.php
 The parent class of all domain objects.  Includes methods for dynamically accessing properties and hooks to manage data persistence with data access objects.
 
 
 #### config
-##### config.xml
-[/core/config/config.xml]
+##### /core/config/config.xml
 database, error handling, logging, and general application settings can be managed in this file
 
-##### Configuration
-[/core/config/Configuration.php]
+##### /core/config/Configuration.php
 manages internal xml files
 
-##### Constants
-[/core/config/Constants.php]
+##### /core/config/Constants.php
 additional configuration settings.  set the email notification address here.
 
-##### Definitions
-[/core/config/definitions.php]
+##### /core/config/definitions.php
 defines the internal structure of the app
 
-##### Domain Mapper
-[/core/config/domainMapper.php]
+##### /core/config/domainMapper.php
 Setup getters and setters here for domain objects
 
-##### Messages
-[/core/config/message.php]
+##### /core/config/message.php
 define system wide messages here
 
-##### Page
-[/core/config/pages.xml]
+##### /core/config/pages.xml
 The page objects in the site.  Any html page entities must be defined here.  The application routing takes the format of http://yourdomain.com/display/pagename.  pagename is defined here and in the database (see the database section).
 
-##### Templates
-[/core/config/templates.xml]
+##### /core/config/templates.xml
 Defined the actual template files associate with pages and page components.  You also register javascript dependencies here.
 
 
 
 #### conversion
 
-##### xmlToArray
-[/core/conversion/xmlToArray.xml]
+##### /core/conversion/xmlToArray.xml
 for internal conversion of xml files
 
 
 #### db
-##### mysql
-[/core/db/mysql/mysql.php]
+##### /core/db/mysql/mysql.php
 mysql wrapper implemented from the DBWrapper interface.  Add additional database connectors here from the same interface.
 
-##### DBConn
-[/core/mysql/DBConn.xml]
+##### /core/mysql/DBConn.xml
 Singleton database connection handler
 
-##### DBWrapper
-[/core/mysql/DBWrapper.php]
+##### /core/mysql/DBWrapper.php
 Interface for defining db connectors
 
-##### QueryBuilder
-[/core/mysql/QueryBuilder.php]
+##### /core/mysql/QueryBuilder.php
 sql query generator
 
-##### domain
-[/core/domain/[domain object].php]
+##### /core/domain/[domain object].php
 Create your domain objects here.  
 
 The must extend the Overloader class.  
@@ -90,85 +72,73 @@ Then you can add all your domain business rules code here.  The steps to creatin
 
 Create a domain object here that extends Overloader:
 
-class User extends Overloader
-{
+				class User extends Overloader
+				{
 
-	private function userMethods(){ /.../ }
+					private function userMethods(){ /.../ }
 
-	public function doSomething(){ /.../ }
+					public function doSomething(){ /.../ }
 
-}
+				}
 
 Add a userdao object to the service directory (/core/service) that extends the Basedao class:
 
-class Userdao extends Basedao
+				class Userdao extends Basedao
 
-{
+				{
+					protected $dataClass = 'User'; //this is important - refers to the domain name you chose for this entity
 
-	protected $dataClass = 'User'; //this is important - refers to the domain name you chose for this entity
+					public function __construct($id=0,$keyName = 'id',$table='users'){ //you can rewrite $table if you want a different table name (such as testing) in the db
 
-	public function __construct($id=0,$keyName = 'id',$table='users'){ //you can rewrite $table if you want a different table name (such as testing) in the db
+				        if($id){
 
-        if($id){
+				                parent::__construct($id, $keyName, $table);
 
-                parent::__construct($id, $keyName, $table);
+				        }
 
-        }
-
-    }
-}
+				    }
+				}
 
 For persistence to work you must also create the table (next version should allow you to do that on the fly)
 
 To control which properties you want to allow getters and setters, you must edit the /core/config/domainMapper.xml file
 
 #### Exception
-##### coreException
-[/core/exception/coreException.php]
+##### /core/exception/coreException.php
 App specific exception extended from the PHP Exception class.
 
 #### Func
-##### autoload
-[/core/func/autoload.php]
+##### /core/func/autoload.php
 Responsible for dynamically loading classes
 
-##### Common Functions
-[/core/func/common.functions.php]
+##### /core/func/common.functions.php
 Add any global functions you wish to use here.
 
-##### Header Preamble
-[/core/func/header.preamble.php]
+##### /core/func/header.preamble.php
 add any header() directives here
 
 #### Logger
-##### autoload
-[/core/logger/Logger.php]
+##### /core/logger/Logger.php
 Handles creating logs
 
 #### Service
-##### BaseDAO
-[/core/service/Basedao.php]
+##### /core/service/Basedao.php
 The parent class for handling all db persistence.  Add your Data Access Objects here, extending the Basedao class.  See domain section on tips for doing this.
 
 #### Web
-##### EmailAction
-[/core/web/EmailAction.php]
+##### /core/web/EmailAction.php
 Handles all phpmailer transactions.  
 
-##### Page
-[/core/web/Page.php]
+##### /core/web/Page.php
 Responsible for rendering and constructing all page entities in the app
 
-##### Request
-[/core/web/Request.php]
+##### /core/web/Request.php
 Provides an object wrapper to the Server Request Object
 
-##### Session
-[/core/web/Session.php]
+##### /core/web/Session.php
 Provides an object wrapper to the Server Session Object
 
-##### Templator
-[/core/web/Templator.php]
+##### /core/web/Templator.php
 Responsible for constructing pages and components
 
 
@@ -177,13 +147,11 @@ Responsible for constructing pages and components
 ---
 ### html / interface files
 
-#### main.tpl
-[/html/main.tpl]
+#### /html/main.tpl
 
 This is the main html container for the application.  Right now it's mono-themed, but you can create seperate sub directories under html and point to them in the config.xml file.  All of the sub components in main load to the $oei_content placeholder in the body section.
 
-#### Components
-[/html/components]
+#### /html/components
 Invididual pages and any other html snippets reside here.  You must register them to be used as page objects (in core/config/templates.xml)
 
 #### Client Side Dependencies
@@ -215,8 +183,7 @@ or
 http://myapp.com/m/methodName
 
 ---
-### API
-[/api/index.php]
+### /api/index.php
 There is an internal api gateway for ajax calls.  
 
 You can call it with a url such as http://myapp.com/api/?m=findUser
@@ -267,25 +234,26 @@ The other types of tables (domain object persistence tables) just need an id and
 INSERT INTO `pages` VALUES(40, 'helloWorld', 'HelloWorld Test', 'N', NULL);
 
 ####Creating a persistent domain object and manipulating it
-1. Create a class that extends the Overloader.php class in /core/domain (e.g. User)
-2. Create a class that extends the Basedao.php class in /core/service/ (e.g. Userdao.php)
-3. Set the default $table in the dao class constructor
-4. Add any setters and getters to the domainMapper.xml file
-5. You can test in the index.php file or make a script that runs as a method (see Rules)
-6. Create, modify, and save your object
+1.	Create a class that extends the Overloader.php class in /core/domain (e.g. User)
+2.	Create a class that extends the Basedao.php class in /core/service/ (e.g. Userdao.php)
+3.	Set the default $table in the dao class constructor
+4.	Add any setters and getters to the domainMapper.xml file
+5.	You can test in the index.php file or make a script that runs as a method (see Rules)
+6.	Create, modify, and save your object
 
-$user = new User;
+#####Example
+				$user = new User;
 
-$user->setFname('John');
+				$user->setFname('John');
 
-$user->setLname('Smithington');
+				$user->setLname('Smithington');
 
-$user->setEmail('john@test.com');
+				$user->setEmail('john@test.com');
 
-$user->save();
+				$user->save();
 
-$user2 = new User;
+				$user2 = new User;
 
-$user2->loadbyField('email','john@test.com');
+				$user2->loadbyField('email','john@test.com');
 
-echo $user2->getLname(); //should say 'Smithington'
+				echo $user2->getLname(); //should say 'Smithington'
