@@ -82,8 +82,13 @@ sql query generator
 
 ##### domain
 [/core/domain/[domain object].php]
-Create your domain objects here.  The must extend the Overloader class.  Then you can add all your domain business rules code here.  The steps to creating a usable domain object that has persistence is as follows:
-1. Create a domain object here that extends Overloader:
+Create your domain objects here.  
+
+The must extend the Overloader class.  
+
+Then you can add all your domain business rules code here.  The steps to creating a usable domain object that has persistence is as follows:
+
+Create a domain object here that extends Overloader:
 
 class User extends Overloader
 {
@@ -94,7 +99,7 @@ class User extends Overloader
 
 }
 
-2. Add a userdao object to the service directory (/core/service) that extends the Basedao class:
+Add a userdao object to the service directory (/core/service) that extends the Basedao class:
 
 class Userdao extends Basedao
 
@@ -113,8 +118,9 @@ class Userdao extends Basedao
     }
 }
 
-3. For persistence to work you must also create the table (next version should allow you to do that on the fly)
-4. To control which properties you want to allow getters and setters, you must edit the /core/config/domainMapper.xml file
+For persistence to work you must also create the table (next version should allow you to do that on the fly)
+
+To control which properties you want to allow getters and setters, you must edit the /core/config/domainMapper.xml file
 
 #### Exception
 ##### coreException
